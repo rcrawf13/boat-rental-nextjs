@@ -1,7 +1,0 @@
-{
-  "/api/booking/availability/route": "app/api/booking/availability/route.js",
-  "/page": "app/page.js",
-  "/booking/page": "app/booking/page.js",
-  "/booking/checkout/page": "app/booking/checkout/page.js",
-  "/booking/confirmation/page": "app/booking/confirmation/page.js"
-}
