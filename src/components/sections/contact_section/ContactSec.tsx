@@ -1,11 +1,17 @@
-import ContactWideScreen from "./ContactWideScreen"
-import './contact.css';
+import ContactWideScreen from "./ContactWideScreen";
+import ContactFooter from "./ContactFooter";
+import FadeDiv from "@/components/fade_div/FadeDiv";
+import "./contact.css";
+
 const ContactSec = () => {
   return (
-  <>
-    <ContactWideScreen/>
-  </>
-)
-}
+    <>
+      <FadeDiv>
+        <ContactWideScreen />
+      </FadeDiv>
+      <ContactFooter />
+    </>
+  );
+};
 
 export default ContactSec

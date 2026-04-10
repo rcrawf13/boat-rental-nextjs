@@ -1,5 +1,5 @@
-import Root from './routes/root/Root';
-import Booking from './routes/booking/Booking';
+import Root from '@/components/Root';
+import Booking from '@/components/booking/Booking';
 import { Routes, Route } from 'react-router';
 import ActivePriceContext from './context/ActivePriceContext';
 import { useState } from 'react';
@@ -9,7 +9,7 @@ import './App.css';
 function App() {
   const [active, setActive] = useState(2);
   const [currentPrice,setCurrentPrice] = useState('$250.00');
-  const [selectedDayJSObj,setSelectedDayJSObj] = useState(dayjs().hour(17).minute(30));
+  const [selectedDayJSObj,setSelectedDayJSObj] = useState(dayjs());
   const [isCalendar,setIsCalendar] = useState(false);
 
   return (

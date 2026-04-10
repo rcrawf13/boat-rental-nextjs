@@ -1,6 +1,7 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import cardSectionInfo from './carouselItems';
 import { motion } from "motion/react";
+import { staticImportSrc } from "@/lib/staticImportSrc";
 const Carousel = () => {
   const [carouselRef] = useEmblaCarousel({duration:10});
   return (
@@ -13,7 +14,8 @@ const Carousel = () => {
                     <motion.img 
                     initial={{opacity:0,translateY:100}} 
                     whileInView={{translateY:0, opacity:1}} 
-                    src={itemObject.image} 
+                    src={staticImportSrc(itemObject.image)} 
+                    alt={`${itemObject.title.replace(/\s+/g, " ").trim()} icon`}
                     />
 
                     <h2>{itemObject.title.split('\n ').map((line,i)=>{

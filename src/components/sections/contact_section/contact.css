@@ -1,28 +1,140 @@
 #contact {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 150vh;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100dvh;
+    height: auto;
     position: relative;
+    padding: 2rem 0 0;
+    box-sizing: border-box;
+    /* Space between the form card and the footer */
+    gap: 2.5rem;
 }
+
+/* Match #about #fade: form card is 90% of same-width parent as About/Pricing */
+#contact #fade {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 auto;
+    min-height: min(100dvh, 100%);
+    height: auto;
+}
+
 .contactWideScreenContain {
     color: #3A745C;
-    width: 90%; max-width: 1600px;
-    height: auto; min-height: 60dvh;
-    top: 6.5%;
+    width: 90%;
+    max-width: 1600px;
+    margin-inline: auto;
+    height: auto;
+    min-height: min(70dvh, 720px);
     background-color: #FFFFFF;
-    position: absolute;
+    position: relative;
     z-index: 2;
     border-radius: 15px;
     box-shadow: var(--home-text-shadow);
     box-sizing: border-box;
     padding: 1rem;
-
-
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
 
+/* --- Footer (theme: deep teal + mint accents) --- */
+.contactSiteFooter {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+    background: linear-gradient(165deg, #1e4a45 0%, #2F6F66 45%, #256b62 100%);
+    color: #e8f4f2;
+    border-top: 3px solid #55948a;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.contactSiteFooter__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2.25rem 1.5rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.contactSiteFooter__title {
+    margin: 0 0 0.35rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+}
+
+.contactSiteFooter__tagline {
+    margin: 0 0 1.75rem;
+    color: #c5e0dc;
+    max-width: 36rem;
+}
+
+.contactSiteFooter__columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.75rem 2rem;
+}
+
+.contactSiteFooter__heading {
+    margin: 0 0 0.65rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #7ebfb4;
+}
+
+.contactSiteFooter__col p {
+    margin: 0 0 0.4rem;
+}
+
+.contactSiteFooter__muted {
+    font-size: 0.85rem;
+    color: #a8cfc7;
+}
+
+.contactSiteFooter a {
+    color: #d7e3e2;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.contactSiteFooter a:hover {
+    color: #ffffff;
+    border-bottom-color: #55948a;
+}
+
+.contactSiteFooter__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contactSiteFooter__links li {
+    margin-bottom: 0.45rem;
+}
+
+.contactSiteFooter__bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1rem 1.5rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.contactSiteFooter__copyright {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #9cc9c0;
 }
 
 .greyBox {

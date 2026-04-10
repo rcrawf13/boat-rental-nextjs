@@ -1,10 +1,12 @@
+"use client";
+
 import TextField from "@mui/material/TextField"
 import { styled } from "@mui/material/styles"
-import BookingButton from "../../booking_button/BookingButton";
+import BookingButton from "@/components/shared/booking-button/BookingButton";
 import { useState } from "react";
 import checkVid from '../../../assets/Check.webm';
-import { createClient } from '@supabase/supabase-js';
 import chime from './../../../assets/sounds/success_chime.mp3'
+import { staticImportSrc } from "@/lib/staticImportSrc";
 const MyTextField = styled(TextField)({
     '& .MuiInputLabel-root': {
                 color:'#3A745C',
@@ -20,7 +22,6 @@ const MyTextField = styled(TextField)({
   }
 });
 
-const supabase = createClient(import.meta.env.VITE_SUPABASE_URL,import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY);
 const ContactWideScreen = () => {
     const formFields = {
     fName:'',
@@ -33,18 +34,8 @@ const ContactWideScreen = () => {
   const [formFieldsObj,setFormFieldsObj] = useState(formFields);
   
     const formInsert = async () => {
-    const { data, error } = await supabase
-      .from('client-messages')
-      .insert([
-        {
-          fname:formFieldsObj.fName,
-          lname:formFieldsObj.lName,
-          email:formFieldsObj.email,
-          subject:formFieldsObj.email,
-          message:formFieldsObj.message
-        },
-      ])
-      console.log(data,error)
+      // Supabase submission intentionally disabled for local UI preview.
+      return Promise.resolve();
     }
 
   const validateFields = () => {
@@ -74,10 +65,10 @@ const ContactWideScreen = () => {
       <div className="contactWideScreenContain">
           <div className="flexCont" style={{display:'flex',flexDirection:'column',}}>
             <video playsInline autoPlay  >
-              <source src={checkVid} type="video/webm"/>
+              <source src={staticImportSrc(checkVid)} type="video/webm"/>
             </video>
             <audio autoPlay hidden>
-              <source src={chime}/>
+              <source src={staticImportSrc(chime)}/>
             </audio>
           <h3 style={{fontFamily:'Inter', fontWeight:'500', color:'#55948A'}}>Message Recieved</h3>
           </div>

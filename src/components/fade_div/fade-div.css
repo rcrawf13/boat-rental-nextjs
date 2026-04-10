@@ -1,9 +1,16 @@
 #fade {
+    position: relative;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    max-width: 1600px;
-    min-width: 100%;
+    /* Fill the section so % heights and centered children work (esp. when inner panels are not position:absolute) */
+    width: 100%;
+    max-width: min(1600px, 100%);
+    margin-inline: auto;
+    flex: 1 1 auto;
+    align-self: stretch;
+    min-height: min(100dvh, 100%);
+    height: auto;
+    box-sizing: border-box;
 }

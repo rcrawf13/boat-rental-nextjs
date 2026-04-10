@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext } from "react";
 import type { APIResponse } from "./contexts_types/APIRes";
 

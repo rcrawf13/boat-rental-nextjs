@@ -1,7 +1,11 @@
+"use client";
+
 import React, { useState, type Dispatch, type SetStateAction } from "react";
 import NumberComponent from "./NumberComponent";
 import { useContext } from "react";
 import ActivePriceContext  from "../../../context/ActivePriceContext";
+import addIcon from "../../../assets/add-icon.svg";
+import { staticImportSrc } from "@/lib/staticImportSrc";
 import { motion } from "motion/react";
 import type { Dayjs } from "dayjs";
 
@@ -62,7 +66,13 @@ const DurationButtons = () => {
         whileHover={{cursor:'pointer'}}
         initial={{scale:1}}
         whileTap={{scale:.95}}
-        style={{transformOrigin:'center'}}
+        style={{
+          transformOrigin:'center',
+          backgroundImage: `url(${staticImportSrc(addIcon)})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '50%',
+          backgroundPosition: 'center center',
+        }}
         id="customTime" 
         onClick={handleOpen}></motion.button>
       </div>

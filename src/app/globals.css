@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sulphur+Point:wght@300;400;700&display=swap');
+
+/* Pricing + booking duration pills (2 Hrs / 4 Hrs) and matching custom-time control */
+:root {
+  --duration-pill-width: 88px;
+  --duration-pill-height: 56px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #2F6F66;
+  display: flex;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+
+
+/* Use 100% — 100dvw ignores scrollbar and can clip/shift content mid-range widths */
+section {
+  height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+@media (max-width:600px) {
+  section {
+      height: 105svh;
+      min-height: 700px;
+  }
+
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  --home-text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* Match About + Pricing wide white panels (wideScreenContainer / priceWideScreenContainer) */
+  --home-wide-panel-min-height: clamp(24rem, 46dvh, 35rem);
+}
+
+
+.splashItems  {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Imprint MT Shadow";
+  width: 100%;
+  color: aliceblue;
+  animation: fadeSlideUp forwards 1s ease-in-out;
+  gap: 3rem;
+
+}
+
+
+.textCarouselContainer * {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+
+.heroText {
+
+  filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.35));
+  height: clamp(30dvh, 35dvh, 225px);
+  width: 100dvw;
+  
+  
+}
+
+
+
+@keyframes zoomInOut {
+  0%{
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+  
+}
+
+@keyframes fadeSlideUp {
+  0%{
+    opacity: 0;
+    transform: translate(0, 10rem);
+  }
+
+  100%{
+    opacity: 100%;
+  }
+}
+
+
+
+#home {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  text-shadow: var(--home-text-shadow);
+  min-height: 100lvh;
+  position: relative;
+  isolation: isolate;
+}
+
+#home > .wallpaper {
+  height: 110%;
+  width: 100dvw;
+  position: absolute;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: zoomInOut 10s ease-in-out infinite alternate;
+  z-index: 0;
+  top: calc(-1*env(safe-area-inset-top));
+}
+
+#home > .splashItems {
+  position: relative;
+  z-index: 1;
+}
+
+.textCarouselRoot {
+  overflow: hidden;
+}
+.textCarouselContainer {
+  display: flex;
+}
+.textCarouselContainer > * {
+  text-align: center;
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.textCarouselContainer > *.is-selected {
+  opacity: 1;
+}
+#about {
+  background-color: #2f6f66;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+  min-height: 100dvh;
+  height: auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#contact {
+  background-color: #55948a;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+

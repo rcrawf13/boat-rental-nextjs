@@ -1,7 +1,7 @@
 import DurationButtons from './DurationButtons';
-import BookingButton from '../../booking_button/BookingButton';
+import BookingButton from "@/components/shared/booking-button/BookingButton";
 import FadeDiv from '../../fade_div/FadeDiv';
-import ImgPriceComp from '../../../routes/booking/components/ImgPriceComp';
+import ImgPriceComp from "@/components/booking/components/ImgPriceComp";
 import './pricesecwide.css';
 type setCurrentPriceType = React.Dispatch<React.SetStateAction<string>>;
 
@@ -19,6 +19,9 @@ const PriceSecWide = () => {
           <div className="priceWideScreenContainer">
         <div className="dynamicPricingSect">
         <h3>Pontoon Cruise</h3>
+        <div className="priceImageCell priceImageCellInContent">
+          <ImgPriceComp/>
+        </div>
         <DurationButtons  />
         
         <div className="includedList">
@@ -31,8 +34,9 @@ const PriceSecWide = () => {
         </div>
         <BookingButton variant={'filled'} />
         </div>
-        <ImgPriceComp/>
-        
+        <div className="priceImageCell priceImageCellRight">
+          <ImgPriceComp/>
+        </div>
     </div>
     </FadeDiv>
   )

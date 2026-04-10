@@ -1,0 +1,134 @@
+.bk_mobile {
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    height: 93vh; width: 93%;
+    display: none;
+    align-self: center; 
+    justify-content: center;
+}
+
+@media (width < 880px ) {
+    .bk_mobile {
+        display: flex;
+        
+    }    
+}
+
+
+
+.bk_mobile input[id^="base-ui-_r_"] {
+    border: #2F6F66 solid 3px;
+    min-width: 315px;
+    height: 5vh;
+}
+
+.bk_mobile > div[class^="MuiPickersLayout-root"] * {
+    color: #2F6F66;
+}
+
+.bk_mobile div[class$="MuiDateCalendar-root"] button[aria-selected="true"]{
+    color: #FFFFFF;
+    background-color: #2F6F66;
+}
+
+.bk_mobile span[class$="-indicator"] {
+    background-color: #2F6F66;
+}
+
+/* For Selected Time Values */
+.bk_mobile ul[role='listbox'] li[aria-selected='true'] {
+    background-color: #2F6F66;
+    color: #FFFFFF;
+    border-radius: 12px;
+}
+
+.bk_mobile button[role="gridcell"] {
+    border-color: #2F6F66;
+}
+
+.booking-mobile-step2 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 93%;
+    max-width: 100%;
+    flex: 1;
+    min-height: 0;
+    gap: 0.5rem;
+}
+
+.booking-mobile-pricing-shell {
+    width: 100%;
+    max-height: calc(100dvh - 120px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    justify-items: center;
+    align-items: center;
+    color: #2f6f66;
+}
+
+/* Full-bleed image row: cancel shell horizontal padding so the photo meets the card edge (no white gutter / shadow gap). */
+.booking-mobile-pricing-shell > .priceQuoteCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% + 3rem);
+    max-width: none;
+    min-width: 0;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+}
+
+/* Match desktop ImgPriceComp behavior: one rounded block, shadow is the card’s; image uses full row width, slightly smaller max height than desktop. */
+.booking-mobile-pricing-shell > .priceQuoteCont .imgPriceComp-root {
+    width: 100%;
+}
+
+.booking-mobile-pricing-shell > .priceQuoteCont .imgPriceComp-inner {
+    max-width: min(100%, 300px);
+    width: 100%;
+    margin-inline: auto;
+}
+
+.booking-mobile-pricing-shell > .priceQuoteCont .imgPriceComp-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: min(28vh, 210px);
+    object-fit: contain;
+    object-position: center;
+    border-radius: 15px;
+    box-shadow: none;
+}
+
+.booking-mobile-fields-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 462px;
+}
+
+.bookingForm--pricingMobile {
+    width: 100%;
+    align-items: center;
+}
+
+.booking-mobile-pricing-shell .bookingForm--pricingMobile > .durCont {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+}
+
+.booking-mobile-pricing-shell .bookingForm--pricingMobile > .durCont > .bookingFlowCustDurCont {
+    justify-content: center;
+}

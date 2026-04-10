@@ -1,0 +1,10 @@
+1:"$Sreact.fragment"
+2:I[82123,["148","static/chunks/148-98042408cf01932a.js","959","static/chunks/959-3f4266fff2319a81.js","61","static/chunks/61-3c132c87c3fdfd2f.js","583","static/chunks/583-f240d1cb73cb94ff.js","721","static/chunks/721-43d541cad341de63.js","6","static/chunks/6-2e484803588c15c9.js","766","static/chunks/app/booking/page-8537b63dcf822b36.js"],"default"]
+3:I[51663,["148","static/chunks/148-98042408cf01932a.js","959","static/chunks/959-3f4266fff2319a81.js","61","static/chunks/61-3c132c87c3fdfd2f.js","583","static/chunks/583-f240d1cb73cb94ff.js","721","static/chunks/721-43d541cad341de63.js","6","static/chunks/6-2e484803588c15c9.js","766","static/chunks/app/booking/page-8537b63dcf822b36.js"],"default"]
+4:I[90484,[],"OutletBoundary"]
+5:"$Sreact.suspense"
+:HL["/_next/static/css/87f3055f928c3302.css","style"]
+:HL["/_next/static/css/22d02ba1608a9652.css","style"]
+:HL["/_next/static/css/50fb1798edb4cad7.css","style"]
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"children":["$","$L3",null,{}]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/87f3055f928c3302.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/22d02ba1608a9652.css","precedence":"next"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/css/50fb1798edb4cad7.css","precedence":"next"}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"XJrDs3BDwzapF-iiEfO_o"}
+6:null

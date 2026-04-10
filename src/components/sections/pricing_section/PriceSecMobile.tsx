@@ -1,6 +1,6 @@
 import DurationButtons from './DurationButtons';
-import BookingButton from '../../booking_button/BookingButton';
-import ImageWideCont from '../../image_component/ImageWideCont';
+import BookingButton from "@/components/shared/booking-button/BookingButton";
+import PricingMobileBoatImage from "./PricingMobileBoatImage";
 
 
 
@@ -10,7 +10,7 @@ const PriceSecMobile = () => {
       <div className="mobile-content-container">
         <h3>Pontoon Cruise</h3>
         <div className="priceQuoteCont">
-        <ImageWideCont/>
+        <PricingMobileBoatImage />
         </div>
         <DurationButtons/>
         

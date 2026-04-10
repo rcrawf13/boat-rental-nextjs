@@ -1,23 +1,99 @@
 .priceWideScreenContainer {
     max-width: 1600px;
-    height: 80%;
     width: 90%;
+    margin: 0 auto;
+    /* In-flow panel — absolute positioning removed the panel from #fade’s layout and caused blank bands ~800–900px */
+    height: 600px;
+    /* Cap min so it never wins over max-height on short viewports */
+    min-height: min(
+      var(--home-wide-panel-min-height, clamp(600px, 46dvh, 35rem)),
+      min(80dvh, 880px)
+    );
+    max-height: min(88dvh, 920px);
     background-color: #FFFFFF;
-    position: absolute;
+    position: relative;
     z-index: 2;
     border-radius: 15px;
     display: none;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    align-items: center;
+    /* Stable two columns: text | image. auto-fit was reflowing the image column and shifting alignment. */
+    grid-template-columns: minmax(260px, 1fr) minmax(0, 1fr);
+    /* Stretch columns to shared min-height (matches .wideScreenContainer stature) */
+    align-items: stretch;
+    justify-items: stretch;
     justify-content: center;
     min-width: 0;
     box-sizing: border-box;
     box-shadow: var(--home-text-shadow);
-    box-sizing: border-box;
     padding: .8rem;
     font-family: "Inter", Arial, Helvetica, sans-serif;
     color: #064743;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+ }
+
+ /* Keeps boat image centered when the grid cell shrinks */
+ .priceImageCell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+ }
+
+.priceImageCellInContent {
+    display: none;
+}
+
+.priceImageCellRight {
+    display: flex;
+    height: 100%;
+}
+
+/* Smaller than default ImgPriceComp (400px) — aligned with booking mobile step */
+.priceWideScreenContainer .imgPriceComp-inner {
+    max-width: min(100%, 280px);
+}
+
+.priceWideScreenContainer .imgPriceComp-img {
+    max-height: min(38vh, 220px);
+}
+
+ @media (min-width: 600px) and (max-width: 960px) {
+    .priceWideScreenContainer {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        height: 600px;
+        max-height: min(90dvh, 900px);
+    }
+    .priceImageCell {
+        min-height: 200px;
+    }
+    .priceImageCellRight {
+        display: none;
+    }
+    .priceImageCellInContent {
+        display: flex;
+        width: 100%;
+        max-width: min(100%, 280px);
+        height: auto;
+        min-height: 0;
+        align-self: center;
+    }
+    .dynamicPricingSect {
+        justify-content: flex-start;
+        padding: 0.5rem 0;
+    }
+    .dynamicPricingSect > h3 { order: 1; }
+    .dynamicPricingSect > .priceImageCellInContent { order: 2; }
+    .dynamicPricingSect > .durCont { order: 3; }
+    .dynamicPricingSect > .includedList { order: 4; }
+    .dynamicPricingSect > #filled {
+        order: 5;
+        margin-top: auto;
+        align-self: center;
+    }
  }
 
  @media  (min-width:600px) {
@@ -36,7 +112,8 @@
     justify-content: center;
     box-sizing: border-box;
     min-width: 0;
-    
+    min-height: 100%;
+    align-self: stretch;
  }
 
 
@@ -46,8 +123,8 @@
 }
 
 .dynamicPricingSect > .durCont > .durationBtns > #customTime {
-    min-height: 5vh ;
-    min-width: 5vh;
+    min-height: var(--duration-pill-height);
+    min-width: var(--duration-pill-height);
 }
 
 .dynamicPricingSect > .durCont > .custDurCont > div > div > #base-ui-_r_1_ {
