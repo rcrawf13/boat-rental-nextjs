@@ -1,5 +1,5 @@
 /**
- * Shape of booking data collected on /booking (matches DB + session handoff to checkout).
+ * Shape of booking data collected on /booking (matches session handoff to confirmation step).
  * Used for sessionStorage draft until Supabase insert is wired.
  */
 export interface BookingCheckoutDraft {
@@ -20,7 +20,7 @@ export interface BookingCheckoutDraft {
 export const BOOKING_CHECKOUT_DRAFT_KEY = "bookingCheckoutDraft";
 
 /**
- * Local-only confirmation shape used until real booking insert + payment exist.
+ * Local confirmation payload used between /booking/confirmation and /payment.
  * Replace this with a server response payload once Supabase/Stripe are wired.
  */
 export interface BookingConfirmationDraft extends BookingCheckoutDraft {

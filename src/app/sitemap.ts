@@ -17,13 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/booking/checkout`,
+      url: `${SITE_URL}/booking/confirmation`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/booking/confirmation`,
+      url: `${SITE_URL}/payment`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.6,

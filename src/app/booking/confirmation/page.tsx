@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import ConfirmationClient from "./ConfirmationClient";
+import ConfirmationStepClient from "./ConfirmationStepClient";
 
 export const metadata: Metadata = {
-  title: "Booking Confirmation",
+  title: "Confirm Reservation Details",
   description:
-    "View your Nomad Adventure Rentals confirmation details for your Lake Norman boat reservation.",
+    "Review your Lake Norman boat rental details before you continue to payment with Nomad Adventure Rentals.",
   alternates: {
     canonical: "/booking/confirmation",
   },
 };
 
 export default function BookingConfirmationPage() {
-  return <ConfirmationClient />;
+  return <ConfirmationStepClient />;
 }

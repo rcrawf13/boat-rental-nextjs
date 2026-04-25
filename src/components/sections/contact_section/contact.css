@@ -183,3 +183,48 @@
     user-select: none;
 }
 
+.contactSuccessState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.contactSuccessState__title {
+    margin: 0;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.1rem, 2.3vw, 1.5rem);
+    color: #55948A;
+}
+
+.successCheckMark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: min(42vw, 112px);
+    max-height: min(42vw, 112px);
+}
+
+.successCheckMark svg {
+    width: 100%;
+    height: 100%;
+}
+
+.successCheckMark__circle {
+    fill: #EAF6F2;
+    stroke: #55948A;
+    stroke-width: 6;
+}
+
+.successCheckMark__path {
+    fill: none;
+    stroke: #55948A;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+

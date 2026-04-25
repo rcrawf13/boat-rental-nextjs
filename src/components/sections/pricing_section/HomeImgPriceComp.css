@@ -1,0 +1,27 @@
+/* Home-only image-price component with larger desktop constraints */
+.homeImgPriceComp-root {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.homeImgPriceComp-inner {
+  position: relative;
+  width: 100%;
+  max-width: min(560px, 100%);
+  margin-inline: auto;
+  display: block;
+}
+
+.homeImgPriceComp-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(62vh, 520px);
+  object-fit: contain;
+  object-position: center;
+  border-radius: 15px;
+}

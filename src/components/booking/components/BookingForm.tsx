@@ -113,7 +113,7 @@ const BookingForm = ({ flowLocked = false }: BookingFormProps) => {
       return;
     }
 
-    router.push("/booking/checkout");
+    router.push("/booking/confirmation");
   };
 
   const isDefaultLayoutLocked = flowLocked;

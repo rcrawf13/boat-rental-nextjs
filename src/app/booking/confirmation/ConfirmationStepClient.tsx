@@ -1,28 +1,6 @@
 "use client";
 
-/**
- * ---------------------------------------------------------------------------
- * STRIPE CHECKOUT — intentionally disabled (STRIPE_ENABLED = false).
- *
- * When you are ready:
- * 1. Install: `npm i @stripe/stripe-js @stripe/react-stripe-js stripe`
- * 2. Vercel / .env.local:
- *      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
- *      STRIPE_SECRET_KEY=sk_test_...          (server only — use in Route Handler)
- * 3. Create `app/api/checkout/session/route.ts` (POST):
- *      - import Stripe from 'stripe'
- *      - const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
- *      - session = await stripe.checkout.sessions.create({ mode: 'payment', ... })
- *      - return Response.json({ url: session.url })
- * 4. Client: loadStripe(NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) or redirect to session.url
- * 5. Webhook route: verify signature, update `bookings.status` + stripe_* columns
- *
- * Supabase: after payment success, call an RPC or update row using service role
- * from the webhook handler (never expose service role to the browser).
- * ---------------------------------------------------------------------------
- */
-
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -39,29 +17,29 @@ import {
   BOOKING_CONFIRMATION_KEY,
 } from "@/types/booking";
 
-/** Flip to true only after Stripe keys + API route exist */
-const STRIPE_ENABLED = false;
-
-export default function CheckoutPlaceholderClient() {
+export default function ConfirmationStepClient() {
   const router = useRouter();
-  const [draft, setDraft] = useState<BookingCheckoutDraft | null>(null);
-  const [parseError, setParseError] = useState<string | null>(null);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [isConfirming, setIsConfirming] = useState(false);
-
-  useEffect(() => {
+  const [draftLoad] = useState<{
+    draft: BookingCheckoutDraft | null;
+    parseError: string | null;
+  }>(() => {
+    if (typeof window === "undefined") {
+      return { draft: null, parseError: null };
+    }
     try {
       const raw = sessionStorage.getItem(BOOKING_CHECKOUT_DRAFT_KEY);
-      if (!raw) {
-        setDraft(null);
-        return;
-      }
-      const parsed = JSON.parse(raw) as BookingCheckoutDraft;
-      setDraft(parsed);
+      if (!raw) return { draft: null, parseError: null };
+      return {
+        draft: JSON.parse(raw) as BookingCheckoutDraft,
+        parseError: null,
+      };
     } catch {
-      setParseError("Invalid booking data in storage.");
+      return { draft: null, parseError: "Invalid booking data in storage." };
     }
-  }, []);
+  });
+  const { draft, parseError } = draftLoad;
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const formattedStart = useMemo(() => {
     if (!draft) return "";
@@ -78,7 +56,7 @@ export default function CheckoutPlaceholderClient() {
         });
   }, [draft]);
 
-  const handleConfirmReservation = () => {
+  const handleContinueToPayment = () => {
     if (!draft) return;
 
     setSubmitError(null);
@@ -95,19 +73,16 @@ export default function CheckoutPlaceholderClient() {
         status: "reserved_unpaid",
       };
 
-      // TODO: replace this local session write with a server insert call.
-      // TODO: create Stripe Checkout Session here once payment is re-enabled.
       sessionStorage.setItem(
         BOOKING_CONFIRMATION_KEY,
         JSON.stringify(confirmation)
       );
       sessionStorage.removeItem(BOOKING_CHECKOUT_DRAFT_KEY);
 
-      // TODO: redirect to Stripe session.url here instead of local confirmation route.
-      router.push("/booking/confirmation");
+      router.push("/payment");
     } catch {
       setSubmitError(
-        "Could not complete the local confirmation step. Please try again."
+        "Could not complete this confirmation step. Please try again."
       );
       setIsConfirming(false);
     }
@@ -198,15 +173,13 @@ export default function CheckoutPlaceholderClient() {
                   variant="body1"
                   sx={{ color: "rgba(47, 111, 102, 0.92)" }}
                 >
-                  Confirm the booking details below. Online payment is not
-                  active yet, so this will save a local confirmation only.
+                  Confirm the booking details below, then continue to secure
+                  payment.
                 </Typography>
               </Box>
 
               <Alert severity="info">
-                This is the temporary checkout workflow. Payment and database
-                booking creation will plug in here later without changing the
-                user journey.
+                This confirmation step replaces the previous checkout route.
               </Alert>
 
               {submitError && <Alert severity="error">{submitError}</Alert>}
@@ -238,21 +211,6 @@ export default function CheckoutPlaceholderClient() {
                 </Stack>
               </Paper>
 
-              {!STRIPE_ENABLED && (
-                <Alert severity="warning">
-                  Payment is paused for this phase. After confirmation, the
-                  customer will land on a success page with a local reservation
-                  reference.
-                </Alert>
-              )}
-
-              {STRIPE_ENABLED && (
-                <Alert severity="info">
-                  {/* TODO: load Stripe, create Checkout Session, and redirect to session.url. */}
-                  Stripe integration goes here.
-                </Alert>
-              )}
-
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={2}
@@ -269,8 +227,8 @@ export default function CheckoutPlaceholderClient() {
                 />
                 <BookingButton
                   variant="filled"
-                  label={isConfirming ? "Confirming..." : "Confirm"}
-                  customCB={handleConfirmReservation}
+                  label={isConfirming ? "Preparing payment..." : "Continue to payment"}
+                  customCB={handleContinueToPayment}
                   disabled={isConfirming}
                 />
               </Stack>

@@ -1,126 +1,167 @@
 "use client";
 
-import TextField from "@mui/material/TextField"
-import { styled } from "@mui/material/styles"
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
 import BookingButton from "@/components/shared/booking-button/BookingButton";
 import { useState } from "react";
-import checkVid from '../../../assets/Check.webm';
-import chime from './../../../assets/sounds/success_chime.mp3'
-import { staticImportSrc } from "@/lib/staticImportSrc";
-const MyTextField = styled(TextField)({
-    '& .MuiInputLabel-root': {
-                color:'#3A745C',
-    
-    },
+import { validateEmail, validateNameField } from "@/lib/bookingValidation";
+import SuccessCheckMark from "./SuccessCheckMark";
 
-  '& .MuiOutlinedInput-notchedOutline': {
-    border: 'solid #3A745C 1pt'
-    
+type ContactFormValues = {
+  fName: string;
+  lName: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type ContactFieldErrors = Partial<Record<keyof ContactFormValues, string>>;
+
+const MyTextField = styled(TextField)({
+  "& .MuiInputLabel-root": {
+    color: "#3A745C",
   },
-  '&:hover .MuiOutlinedInput-notchedOutline' : {
-    border:'solid #3A745C 2pt',
-  }
+  "& .MuiOutlinedInput-notchedOutline": {
+    border: "solid #3A745C 1pt",
+  },
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    border: "solid #3A745C 2pt",
+  },
 });
 
 const ContactWideScreen = () => {
-    const formFields = {
-    fName:'',
-    lName:'',
-    email:'',
-    subject:'',
-    message:''
-  }
-  const [isSubmitted, setIsSubmitted ] = useState(false);
-  const [formFieldsObj,setFormFieldsObj] = useState(formFields);
-  
-    const formInsert = async () => {
-      // Supabase submission intentionally disabled for local UI preview.
-      return Promise.resolve();
-    }
+  const formFields: ContactFormValues = {
+    fName: "",
+    lName: "",
+    email: "",
+    subject: "",
+    message: "",
+  };
 
-  const validateFields = () => {
-    const strInputsAry:string[] = Object.values(formFieldsObj);
-    // Validate Empty Fields by checking for ''
-    let isValid = false;
-    for(let str of strInputsAry) {
-      if(str.trim() === '') {
-        setIsSubmitted(false);
-        isValid = false;
-        break;
-      } else {
-        isValid = true;
-      }
-    };
-    
-    if(isValid) {
-        setIsSubmitted(!isSubmitted);
-        formInsert();
-    }
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formFieldsObj, setFormFieldsObj] = useState(formFields);
+  const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
 
+  const formInsert = async () => {
+    // Supabase submission intentionally disabled for local UI preview.
+    return Promise.resolve();
+  };
 
-  }
+  const validateFields = (): ContactFieldErrors => {
+    const errors: ContactFieldErrors = {};
 
-  if(isSubmitted){
+    const firstNameError = validateNameField(formFieldsObj.fName, "First name");
+    if (firstNameError) errors.fName = firstNameError;
+
+    const lastNameError = validateNameField(formFieldsObj.lName, "Last name");
+    if (lastNameError) errors.lName = lastNameError;
+
+    const emailError = validateEmail(formFieldsObj.email);
+    if (emailError) errors.email = emailError;
+
+    if (!formFieldsObj.subject.trim()) errors.subject = "Subject is required.";
+    if (!formFieldsObj.message.trim()) errors.message = "Message is required.";
+
+    return errors;
+  };
+
+  const handleSubmit = async () => {
+    const errors = validateFields();
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    await formInsert();
+    setIsSubmitted(true);
+  };
+
+  if (isSubmitted) {
     return (
       <div className="contactWideScreenContain">
-          <div className="flexCont" style={{display:'flex',flexDirection:'column',}}>
-            <video playsInline autoPlay  >
-              <source src={staticImportSrc(checkVid)} type="video/webm"/>
-            </video>
-            <audio autoPlay hidden>
-              <source src={staticImportSrc(chime)}/>
-            </audio>
-          <h3 style={{fontFamily:'Inter', fontWeight:'500', color:'#55948A'}}>Message Recieved</h3>
-          </div>
+        <div className="contactSuccessState">
+          <SuccessCheckMark />
+          <h3 className="contactSuccessState__title">Message Received</h3>
+        </div>
       </div>
-    )
-  } else {
-      return (
+    );
+  }
+
+  return (
     <div className="contactWideScreenContain">
       <div className="greyBox">
         <h3>Leave a Message</h3>
         <div className="nameInputs">
-          <MyTextField  label="First Name" 
-          InputLabelProps={{shrink: true}} 
-          required
-          onChange={(e)=>setFormFieldsObj({...formFieldsObj,fName:e.target.value})}
+          <MyTextField
+            label="First Name"
+            InputLabelProps={{ shrink: true }}
+            required
+            value={formFieldsObj.fName}
+            error={!!fieldErrors.fName}
+            helperText={fieldErrors.fName}
+            onChange={(e) => {
+              setFormFieldsObj({ ...formFieldsObj, fName: e.target.value });
+              if (fieldErrors.fName) setFieldErrors((prev) => ({ ...prev, fName: undefined }));
+            }}
           />
-          <MyTextField label="Last Name" 
-          InputLabelProps={{shrink: true}}
-          required
-          onChange={(e)=>setFormFieldsObj({...formFieldsObj,lName:e.target.value})}
+          <MyTextField
+            label="Last Name"
+            InputLabelProps={{ shrink: true }}
+            required
+            value={formFieldsObj.lName}
+            error={!!fieldErrors.lName}
+            helperText={fieldErrors.lName}
+            onChange={(e) => {
+              setFormFieldsObj({ ...formFieldsObj, lName: e.target.value });
+              if (fieldErrors.lName) setFieldErrors((prev) => ({ ...prev, lName: undefined }));
+            }}
           />
         </div>
-        
+
         <MyTextField
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
           label="Email"
           required
-          InputLabelProps={{shrink: true}} 
-          onChange={(e)=>setFormFieldsObj({...formFieldsObj,email:e.target.value})}
+          InputLabelProps={{ shrink: true }}
+          value={formFieldsObj.email}
+          error={!!fieldErrors.email}
+          helperText={fieldErrors.email}
+          onChange={(e) => {
+            setFormFieldsObj({ ...formFieldsObj, email: e.target.value });
+            if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }));
+          }}
         />
         <MyTextField
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
           label="Subject"
           required
-          InputLabelProps={{shrink: true}} 
-          onChange={(e)=>setFormFieldsObj({...formFieldsObj,subject:e.target.value})}
+          InputLabelProps={{ shrink: true }}
+          value={formFieldsObj.subject}
+          error={!!fieldErrors.subject}
+          helperText={fieldErrors.subject}
+          onChange={(e) => {
+            setFormFieldsObj({ ...formFieldsObj, subject: e.target.value });
+            if (fieldErrors.subject) setFieldErrors((prev) => ({ ...prev, subject: undefined }));
+          }}
         />
         <MyTextField
-          onChange={(e)=>setFormFieldsObj({...formFieldsObj,message:e.target.value})}
-          sx={{ width: '100%' }}
-          label="Message" 
+          sx={{ width: "100%" }}
+          label="Message"
           multiline
           rows={5}
           required
-          InputLabelProps={{shrink: true}}
+          InputLabelProps={{ shrink: true }}
+          value={formFieldsObj.message}
+          error={!!fieldErrors.message}
+          helperText={fieldErrors.message}
+          onChange={(e) => {
+            setFormFieldsObj({ ...formFieldsObj, message: e.target.value });
+            if (fieldErrors.message) setFieldErrors((prev) => ({ ...prev, message: undefined }));
+          }}
         />
-        
-        <BookingButton variant="filled" label="Send Message" customCB={validateFields} />
+
+        <BookingButton variant="filled" label="Send Message" customCB={handleSubmit} />
       </div>
     </div>
-  )
-  }
-}
+  );
+};
 
-export default ContactWideScreen
+export default ContactWideScreen;

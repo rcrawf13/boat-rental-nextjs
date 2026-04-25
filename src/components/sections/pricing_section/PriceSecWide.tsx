@@ -1,7 +1,7 @@
 import DurationButtons from './DurationButtons';
 import BookingButton from "@/components/shared/booking-button/BookingButton";
 import FadeDiv from '../../fade_div/FadeDiv';
-import ImgPriceComp from "@/components/booking/components/ImgPriceComp";
+import HomeImgPriceComp from "./HomeImgPriceComp";
 import './pricesecwide.css';
 type setCurrentPriceType = React.Dispatch<React.SetStateAction<string>>;
 
@@ -20,7 +20,7 @@ const PriceSecWide = () => {
         <div className="dynamicPricingSect">
         <h3>Pontoon Cruise</h3>
         <div className="priceImageCell priceImageCellInContent">
-          <ImgPriceComp/>
+          <HomeImgPriceComp />
         </div>
         <DurationButtons  />
         
@@ -35,7 +35,7 @@ const PriceSecWide = () => {
         <BookingButton variant={'filled'} />
         </div>
         <div className="priceImageCell priceImageCellRight">
-          <ImgPriceComp/>
+          <HomeImgPriceComp />
         </div>
     </div>
     </FadeDiv>
