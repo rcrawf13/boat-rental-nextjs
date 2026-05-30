@@ -178,9 +178,6 @@ export default function ConfirmationStepClient() {
                 </Typography>
               </Box>
 
-              <Alert severity="info">
-                This confirmation step replaces the previous checkout route.
-              </Alert>
 
               {submitError && <Alert severity="error">{submitError}</Alert>}
 
@@ -222,12 +219,12 @@ export default function ConfirmationStepClient() {
               >
                 <BookingButton
                   variant="filled"
-                  label="Edit booking"
+                  label="Edit"
                   customCB={() => router.push("/booking")}
                 />
                 <BookingButton
                   variant="filled"
-                  label={isConfirming ? "Preparing payment..." : "Continue to payment"}
+                  label={isConfirming ? "Preparing payment..." : "Continue"}
                   customCB={handleContinueToPayment}
                   disabled={isConfirming}
                 />
